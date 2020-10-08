@@ -1,0 +1,102 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    
+        </head>
+<body>
+    <div class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("LinkHub", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", new { Controller = "Home" })</li>
+                    <li>@Html.ActionLink("BrowseURLS", "Index", new { Controller = "BrowseURL" })</li>
+
+
+
+                    @if (User.Identity.IsAuthenticated)
+                    {
+                        if (User.IsInRole("A"))
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">Category<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+
+                                    <li>@Html.ActionLink("Add", "Index", new { Controller = "Category" })</li>
+                                    <li>@Html.ActionLink("View", "Index", new { Controller = "ListCategory" })</li>
+                                    
+                                </ul>
+                            </li>
+
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">URL<b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("ApproveOrReject", "Index", new { Controller = "ApproveURLs" })</li>
+                                    <li>@Html.ActionLink("SubmitURL", "Index", new { Controller = "URL" })</li>
+                                </ul>
+                            </li>
+
+                            <li>@Html.ActionLink("ListUser", "Index", new { Controller = "ListUser" })</li>
+                            <li>@Html.ActionLink("SignOut", "SignOut", new { Controller = "Login" })</li>
+                            <li><a href="#">Welcome @User.Identity.Name.ToString()</a></li>
+                        }
+                        if (User.IsInRole("U"))
+                        {
+                            <li>@Html.ActionLink("SubmitURL", "Index", new { Controller = "URL" })</li>
+                            <li>@Html.ActionLink("SignOut", "SignOut", new { Controller = "Login" })</li>
+                            <li><a href="#">Welcome Mr/Ms @User.Identity.Name.ToString()</a></li>
+                        }
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("QuickSubmitURL", "Index", new { Controller = "QuickSubmitURL" })</li>
+                        <li>@Html.ActionLink("Register", "Index", new { Controller = "Register" })</li>
+                        @*
+            <li>@Html.ActionLink("Login", "Index", new { Controller = "Login" })</li>
+                        *@
+                        <li><a href="Login">Login</a></li>
+
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="container body-content">
+        <br /><br />
+        @RenderBody()
+        <hr />
+        <footer>
+            <blockquote class="blockquote-reverse">
+                <p>My saying goes here</p>
+                <small>By Me... <cite title="Source Title">[MCT]</cite></small>
+            </blockquote>
+            <p>&copy; @DateTime.Now.Year - LinkHub On Using Asp.Net MVC And Entity Framework</p>
+        </footer>
+        <blockquote class="pull-right">
+            <p> No engineer leave their country for hunting the job. </p>
+            </blockquote>
+    </div>
+
+
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    @*<script src="~/Scripts/jquery-3.4.1.js"></script>*@
+    <script src="~/Scripts/jquery.validate.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>
