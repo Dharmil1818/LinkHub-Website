@@ -10,7 +10,7 @@ namespace LinkHubUI.Controllers
     public class BaseAdminController : Controller
     {
         // GET: BaseAdmin
-      
+      // baseadmin controller
         protected AdminBs objBs;
         public BaseAdminController()
         {
