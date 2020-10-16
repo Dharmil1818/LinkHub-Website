@@ -40,6 +40,8 @@ namespace BLL
                     myUrl.UrlDesc = myUrl.UrlTitle;
                     myUrl.IsApproved = "P";
                     urlBs.Insert(myUrl);
+
+                    Trans.Complete();
                 }
                 catch (Exception E1)
                 {
@@ -48,26 +50,27 @@ namespace BLL
                 }
         }
 
-        public void ApproveOrReject(List<int> Ids, string Status)
+    public void ApproveOrReject(List<int> Ids, string Status)
+    {
+        using (TransactionScope Trans = new TransactionScope())
         {
-            using (TransactionScope Trans = new TransactionScope())
+            try
             {
-                try 
+                foreach (var item in Ids)
                 {
-                    foreach (var item in Ids)
-                    {
-                        var myUrl = urlBs.GetByID(item);
-                        myUrl.IsApproved = Status;
-                        urlBs.Update(myUrl);
-                    }
-                    Trans.Complete();
+                    var myUrl = urlBs.GetByID(item);
+                    myUrl.IsApproved = Status;
+                    urlBs.Update(myUrl);
                 }
-                catch(Exception E1)
-                {
-                    throw new Exception(E1.Message);
-                }
+                Trans.Complete();
+            }
+            catch (Exception E1)
+            {
+                throw new Exception(E1.Message);
             }
         }
+    }
+       
     }
     public class LinkHubMembershipProvider : MembershipProvider
     {

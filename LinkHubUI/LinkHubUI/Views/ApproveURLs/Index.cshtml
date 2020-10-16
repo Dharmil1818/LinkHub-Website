@@ -101,7 +101,7 @@
 
     function BindSelectAll()
     {
-        $("#SelectAll").ready(function (event) {
+        $("#SelectAll").click(function (event) {
             if (this.checked) {
                 $('.ckb').each(function () {
                     this.checked = true;
@@ -146,7 +146,9 @@
 
     @if (ViewBag.Status == "P")
     {
-        <li class="active">@Html.ActionLink("Pending Urls", "Index", new { Status = "P" })</li>
+        <li class="active">
+    @Html.ActionLink("Pending Urls", "Index", new { Status = "P" })
+        </li>
     }
     else
     {

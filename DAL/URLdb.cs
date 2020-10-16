@@ -34,9 +34,13 @@ namespace DAL
             db.tbl_Url.Remove(url);
             Save();
         }
+        
         public void Update(tbl_Url url)
         {
             db.Entry(url).State = EntityState.Modified;
+            db.Configuration.ValidateOnSaveEnabled = false;
+            Save();
+            db.Configuration.ValidateOnSaveEnabled = true;
         }
         public void Save()
         {
